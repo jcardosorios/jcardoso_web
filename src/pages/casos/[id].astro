@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Night from '../../components/Night.astro';
+import StreamingDiagram from '../../components/StreamingDiagram.astro';
+
+export async function getStaticPaths() {
+  const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.data.order);
+  return casos.map((caso, i) => ({
+    params: { id: caso.id },
+    props: { caso, next: casos[(i + 1) % casos.length] },
+  }));
+}
+
+const { caso, next } = Astro.props;
+const { data } = caso;
+const { Content } = await render(caso);
+const index = String(data.order).padStart(2, '0');
+---
+
+<Base title={`${data.title} · Caso | Joaquín Cardoso`} description={data.summary}>
+  <Night>
+    <article class="px-4 pt-28 pb-20 md:px-12 md:pt-40 md:pb-28">
+      <a
+        href="/#casos"
+        class="hit-area inline-block font-mono text-[13px] text-piedra hover:text-pergamino"
+      >
+        <span aria-hidden="true">←</span> Todos los casos
+      </a>
+      <p class="mt-10 font-mono text-[13px] text-brasa">Caso {index}</p>
+      <h1 class="mt-3 max-w-300 font-display text-[44px] leading-none font-light tracking-display md:text-[80px] xl:text-big">
+        {data.title}
+      </h1>
+      <p class="mt-6 max-w-170 text-lg text-niebla md:text-xl md:leading-[30px]">{data.summary}</p>
+      <figure class="mt-12 md:mt-16">
+        {data.diagram ? (
+          <StreamingDiagram />
+        ) : (
+          data.cover && (
+            <Image
+              src={data.cover}
+              alt={data.coverAlt ?? ''}
+              widths={[600, 900, 1200]}
+              sizes="(min-width: 1280px) 1200px, 100vw"
+              class="h-65 w-full border border-pergamino/20 object-cover object-top md:h-130"
+            />
+          )
+        )}
+      </figure>
+      <div class="mt-12 xl:mt-16 xl:grid xl:grid-cols-12 xl:gap-6">
+        <aside class="xl:col-span-4">
+          <dl class="border-b border-pergamino/20">
+            {data.spec.map((s) => (
+              <div class="grid grid-cols-[88px_minmax(0,1fr)] gap-4 border-t border-pergamino/20 py-3 md:grid-cols-[100px_minmax(0,1fr)]">
+                <dt class="font-mono text-xs leading-5.5 text-piedra">{s.label}</dt>
+                <dd class="leading-5.5">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+          <div class="mt-6 grid gap-3 md:grid-cols-2 md:gap-5 xl:grid-cols-1">
+            <div>
+              <p class="font-mono text-xs text-piedra">{data.before.label}</p>
+              <p class="mt-1 text-niebla">{data.before.text}</p>
+            </div>
+            <div>
+              <p class="font-mono text-xs text-brasa">{data.after.label}</p>
+              <p class="mt-1 text-niebla">{data.after.text}</p>
+            </div>
+          </div>
+        </aside>
+        <div class="prose mt-12 xl:col-span-7 xl:col-start-6 xl:mt-0">
+          <Content />
+        </div>
+      </div>
+    </article>
+    <nav aria-label="Más casos" class="border-t border-pergamino/20 px-4 py-16 md:px-12">
+      <p class="font-mono text-[13px] text-piedra">Siguiente caso</p>
+      <a
+        class="hit-area mt-3 inline-block font-display text-4xl leading-tight font-light tracking-display hover:text-ocaso md:text-ttl"
+        href={`/casos/${next.id}`}
+      >
+        {next.data.title}
+        <span aria-hidden="true" class="ml-2">
+          →
+        </span>
+      </a>
+    </nav>
+    <section aria-labelledby="caso-cta" class="px-4 pt-8 pb-24 md:px-12 md:pb-32">
+      <h2
+        id="caso-cta"
+        class="max-w-200 font-display text-4xl leading-tight font-light tracking-display md:text-[56px]"
+      >
+        ¿Tu sitio tiene problemas parecidos?
+      </h2>
+      <a
+        href="/diagnostico"
+        class="mt-8 inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+      >
+        Pide un diagnóstico de tu sitio
+      </a>
+    </section>
+  </Night>
+</Base>
+
+<style>
+  /* el contenido viene de Markdown, así que los estilos usan :global y los tokens de la marca */
+  .prose :global(h2) {
+    margin-top: 3rem;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .prose :global(p),
+  .prose :global(ul) {
+    max-width: 42rem;
+    margin-top: 1rem;
+  }
+  .prose :global(p),
+  .prose :global(li) {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-niebla);
+  }
+  .prose :global(ul) {
+    padding-left: 1.25rem;
+    list-style: square;
+  }
+  .prose :global(li) {
+    margin-top: 0.75rem;
+  }
+  .prose :global(li)::marker {
+    color: var(--color-brasa);
+  }
+  .prose :global(strong) {
+    font-weight: 500;
+    color: var(--color-pergamino);
+  }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    color: var(--color-ocaso);
+  }
+  @media (min-width: 768px) {
+    .prose :global(h2) {
+      font-size: 2.5rem;
+    }
+  }
+</style>
