@@ -1,16 +1,18 @@
 ---
+import Base from '../layouts/Base.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base
+  title="Joaquín Cardoso · Desarrollo web para pymes"
+  description="Sitios web rápidos, fáciles de editar y pensados para Google. Desarrollo web para pymes desde Concepción, Chile."
+>
+  <section class="bg-cielo px-4 pb-24 pt-32 md:px-12 md:pt-44">
+    <p class="font-mono text-[13px] text-bruma">Concepción, Chile · 36.8°S 73.0°O</p>
+    <h1 class="mt-5 font-display text-[56px] font-light leading-none tracking-display md:text-mega">
+      Hola, soy Joaquín<span class="text-brasa">.</span>
+    </h1>
+    <p class="mt-7 max-w-xl text-lg text-niebla md:text-[22px] md:leading-normal">
+      Etapa 1: base del sitio funcionando.
+    </p>
+  </section>
+</Base>

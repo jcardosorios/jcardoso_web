@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces';
+@import '@fontsource/instrument-sans/400.css';
+@import '@fontsource/instrument-sans/500.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+
+@theme {
+  /* texto y acentos */
+  --color-pergamino: #f4efe6;
+  --color-niebla: #d9dee6;
+  --color-bruma: #b6becb;
+  --color-piedra: #8e99a8;
+  --color-brasa: #e8754f;
+  --color-ocaso: #e9a570;
+  /* cielo y noche */
+  --color-cielo: #16213a;
+  --color-crepusculo: #24365a;
+  --color-cerro: #141c20;
+  --color-noche: #0f1626;
+  --color-medianoche: #070a12;
+
+  --font-display: 'Fraunces Variable', serif;
+  --font-sans: 'Instrument Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --text-mega: 7.5rem; /* 120px */
+  --text-mega--line-height: 0.97;
+  --text-big: 7rem; /* 112px */
+  --text-big--line-height: 0.96;
+  --text-ttl: 3.25rem; /* 52px */
+  --text-ttl--line-height: 1.08;
+  --tracking-display: -0.035em;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-noche font-sans text-pergamino antialiased;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ocaso);
+    outline-offset: 3px;
+  }
+}

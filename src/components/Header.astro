@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '/#casos', label: 'Casos' },
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#ruta', label: 'Ruta' },
+  { href: '/#ficha', label: 'Ficha' },
+];
+---
+
+<header class="absolute inset-x-0 top-0 z-20">
+  <div class="flex h-16 items-center justify-between px-4 md:h-22 md:px-12">
+    <a href="/" aria-label="jcardoso, ir al inicio" class="text-pergamino">
+      <Logo class="h-8 w-auto md:h-10" />
+    </a>
+    <button
+      id="menu-btn"
+      type="button"
+      class="flex size-11 items-center justify-center md:hidden"
+      aria-expanded="false"
+      aria-controls="menu"
+    >
+      <span class="sr-only">Menú</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 8h18M3 16h18" stroke="currentColor" stroke-width="2" />
+      </svg>
+    </button>
+    <nav
+      id="menu"
+      aria-label="Principal"
+      class="absolute inset-x-0 top-16 hidden bg-noche md:static md:block md:bg-transparent"
+    >
+      <ul class="flex flex-col px-4 pb-6 text-[15px] md:flex-row md:gap-7 md:p-0">
+        {links.map((l) => (
+          <li>
+            <a class="block py-3 hover:text-ocaso md:py-0" href={l.href}>
+              {l.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a class="inline-block border-b-[1.5px] border-ocaso py-3 md:py-0" href="/#contacto">
+            Contacto
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('menu');
+
+  const setOpen = (open: boolean) => {
+    btn?.setAttribute('aria-expanded', String(open));
+    menu?.classList.toggle('hidden', !open);
+  };
+
+  btn?.addEventListener('click', () => setOpen(btn.getAttribute('aria-expanded') !== 'true'));
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setOpen(false);
+  });
+</script>
