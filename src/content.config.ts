@@ -7,6 +7,7 @@ const casos = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      summary: z.string(),
       order: z.number(),
       spec: z.array(z.object({ label: z.string(), value: z.string() })),
       before: z.object({ label: z.string(), text: z.string() }),
