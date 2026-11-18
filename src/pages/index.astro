@@ -8,6 +8,9 @@ import CaseRow from '../components/CaseRow.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Services from '../components/Services.astro';
 import Route from '../components/Route.astro';
+import CharacterSheet from '../components/CharacterSheet.astro';
+import Faq from '../components/Faq.astro';
+import Contact from '../components/Contact.astro';
 
 const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -34,5 +37,8 @@ const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.dat
 
     <Services />
     <Route />
+    <CharacterSheet />
+    <Faq />
+    <Contact />
   </Night>
 </Base>

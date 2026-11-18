@@ -1,0 +1,76 @@
+---
+import { ridgePath, ridgeY, type Layer } from '../lib/ridge';
+import { contact } from '../data/contacto';
+
+const W = 1440;
+const H = 340;
+const layers: Layer[] = [
+  { base: 170, amp: 50, freq: 1.3, seed: 9, color: '#0e1424' },
+  { base: 250, amp: 40, freq: 1.0, seed: 10, color: '#070a12' }, // mismo color que el footer
+];
+
+// la fogata se apoya sobre la cordillera más cercana
+const fireX = 880;
+const fireY = ridgeY(layers[1], fireX, W) - 10;
+---
+
+<section
+  id="contacto"
+  aria-labelledby="contacto-title"
+  class="relative overflow-hidden px-4 pt-24 pb-64 md:px-12 md:pt-32 md:pb-96"
+>
+  <svg
+    class="pointer-events-none absolute inset-x-0 bottom-0 h-50 w-full md:h-85"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMax slice"
+    aria-hidden="true"
+  >
+    <defs>
+      <radialGradient id="fuego">
+        <stop offset="0" stop-color="#e8754f" stop-opacity="0.5" />
+        <stop offset="0.4" stop-color="#e8754f" stop-opacity="0.14" />
+        <stop offset="1" stop-color="#e8754f" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    {layers.map((l) => (
+      <path d={ridgePath(l, W, H)} fill={l.color} />
+    ))}
+    <circle cx={fireX + 8} cy={fireY + 8} r="230" fill="url(#fuego)" />
+    <rect x={fireX} y={fireY} width="16" height="16" fill="#e8754f" />
+  </svg>
+
+  <div class="relative">
+    <p class="font-mono text-[13px] text-piedra">¿Tu sitio te trae clientes o solo existe?</p>
+    <h2
+      id="contacto-title"
+      class="mt-6 max-w-275 font-display text-[52px] leading-none font-light tracking-display md:text-[88px] xl:text-[128px] xl:leading-[0.94]"
+    >
+      Conversemos junto al fuego<span class="text-brasa">.</span>
+    </h2>
+
+    <div class="mt-8 flex flex-col gap-4 md:mt-12 md:flex-row md:flex-wrap md:items-center md:gap-9">
+      <a
+        href="/diagnostico"
+        class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+      >
+        Pide un diagnóstico de tu sitio
+      </a>
+      <a
+        href={`mailto:${contact.email}`}
+        class="font-mono text-[13px] text-niebla hover:text-pergamino"
+      >
+        {contact.email}
+      </a>
+      {contact.whatsapp && (
+        <a
+          href={`https://wa.me/${contact.whatsapp.number}`}
+          target="_blank"
+          rel="noopener"
+          class="font-mono text-[13px] text-niebla hover:text-pergamino"
+        >
+          WhatsApp {contact.whatsapp.display}
+        </a>
+      )}
+    </div>
+  </div>
+</section>
