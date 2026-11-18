@@ -1,0 +1,7 @@
+{
+  "GHSA-fc5q-39xc-vjpf": {
+    "active": true,
+    "notes": "ReDoS en picomatch sin parche upstream. Riesgo aceptado temporalmente hasta revisión.",
+    "expiry": "2026-12-18"
+  }
+}
