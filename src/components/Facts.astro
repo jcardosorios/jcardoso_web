@@ -1,0 +1,24 @@
+---
+const facts = [
+  { n: '4', text: 'canales: Canal 13, Chilevisión, Latina y Ecuavisa' },
+  { n: '3', text: 'países: Chile, Perú y Ecuador' },
+  { n: '4', text: 'plataformas: LG, Samsung, Hisense y web' },
+  { n: '1', text: 'base de código que optimicé y reutilicé' },
+];
+---
+
+<section aria-labelledby="facts-title" class="px-4 pt-10 md:px-12 md:pt-14">
+  <h2 id="facts-title" class="font-mono text-[13px] text-piedra">
+    Antes de esto · trabajo en equipo en DPS, apps de streaming
+  </h2>
+  <ul class="mt-7 grid grid-cols-2 gap-x-4 gap-y-7 md:grid-cols-4 md:gap-6">
+    {facts.map((f) => (
+      <li class="flex flex-col gap-2.5 border-t border-ocaso/60 pt-4">
+        <span class="font-display text-[60px] leading-none font-light tracking-display md:text-[104px]">
+          {f.n}
+        </span>
+        <span class="max-w-65 text-sm text-bruma md:text-base">{f.text}</span>
+      </li>
+    ))}
+  </ul>
+</section>

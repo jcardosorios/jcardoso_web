@@ -1,0 +1,30 @@
+---
+import { rng } from '../lib/rng';
+
+const W = 1440;
+const H = 7200;
+const rand = rng(11);
+
+const stars = Array.from({ length: 260 }, () => {
+  const y = Math.sqrt(rand()) * H; // raíz: más densidad hacia abajo
+  const depth = y / H;
+  return {
+    x: Math.round(rand() * W),
+    y: Math.round(y),
+    r: [0.8, 1, 1.2, 1.6][Math.floor(rand() * 4)],
+    o: +(Math.min(0.85, 0.15 + depth * 0.8) * (0.5 + rand() * 0.5)).toFixed(2),
+    show: depth > 0.25 || rand() > 0.7, // casi sin estrellas al principio (aún queda luz)
+  };
+}).filter((s) => s.show);
+---
+
+<svg
+  class="absolute inset-0 -z-10 size-full"
+  viewBox={`0 0 ${W} ${H}`}
+  preserveAspectRatio="xMidYMin slice"
+  aria-hidden="true"
+>
+  {stars.map((s) => (
+    <circle cx={s.x} cy={s.y} r={s.r} fill="#F4EFE6" fill-opacity={s.o} />
+  ))}
+</svg>

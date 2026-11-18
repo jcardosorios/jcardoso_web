@@ -1,6 +1,12 @@
 ---
-import Hero from '../components/Hero.astro';
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Night from '../components/Night.astro';
+import Facts from '../components/Facts.astro';
+import CaseRow from '../components/CaseRow.astro';
+
+const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base
@@ -8,7 +14,20 @@ import Base from '../layouts/Base.astro';
   description="Sitios web rápidos, fáciles de editar y pensados para Google. Desarrollo web para pymes desde Concepción, Chile."
 >
   <Hero />
-  <section id="casos" class="min-h-[60vh] bg-cerro px-4 py-24 md:px-12">
-    <p class="font-mono text-[13px] text-piedra">Etapa 3: aquí van los casos.</p>
-  </section>
+  <Night>
+    <Facts />
+
+    <section id="casos" aria-labelledby="casos-title" class="px-4 pt-24 pb-24 md:px-12 md:pt-40">
+      <p class="font-mono text-[13px] text-piedra">Hora azul</p>
+      <h2
+        id="casos-title"
+        class="mt-3 font-display text-[52px] leading-none font-light tracking-display md:text-big"
+      >
+        Casos<sup class="ml-3 align-top font-mono text-base tracking-normal text-piedra">(03)</sup>
+      </h2>
+      {casos.map((caso, i) => (
+        <CaseRow caso={caso} flip={i % 2 === 1} />
+      ))}
+    </section>
+  </Night>
 </Base>

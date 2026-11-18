@@ -1,0 +1,21 @@
+---
+import Stars from './Stars.astro';
+---
+
+<div class="night relative isolate">
+  <Stars />
+  <slot />
+</div>
+
+<style>
+  .night {
+    background: linear-gradient(
+      180deg,
+      #141c20 0%,
+      #121a28 18%,
+      #0f1626 50%,
+      #0a0f1c 80%,
+      #070a12 100%
+    );
+  }
+</style>
