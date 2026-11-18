@@ -43,8 +43,19 @@
   body {
     @apply bg-noche font-sans text-pergamino antialiased;
   }
+
   :focus-visible {
-    outline: 3px solid var(--color-ocaso);
+    outline: 3px solid var(--color-pergamino);
     outline-offset: 3px;
+    box-shadow: 0 0 0 3px var(--color-noche);
+  }
+}
+
+@utility hit-area {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -0.875rem -0.25rem;
   }
 }
