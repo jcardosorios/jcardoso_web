@@ -1,37 +1,8 @@
 ---
-import { rng } from '../lib/rng';
-
-interface Layer {
-  base: number;
-  amp: number;
-  freq: number;
-  seed: number;
-  color: string;
-}
+import { ridgePath, type Layer } from '../lib/ridge';
 
 const W = 1440;
 const H = 900;
-
-const OCTAVES: [number, number][] = [
-  [1, 1],
-  [2.3, 0.45],
-  [5.1, 0.22],
-  [11.7, 0.1],
-];
-
-function ridge({ base, amp, freq, seed }: Layer) {
-  const rand = rng(seed);
-  const phases = OCTAVES.map(() => rand() * Math.PI * 2);
-  let d = `M0 ${H}`;
-  for (let x = 0; x <= W; x += 12) {
-    let y = base;
-    OCTAVES.forEach(([f, weight], i) => {
-      y -= amp * weight * Math.sin((x / W) * Math.PI * 2 * freq * f + phases[i]);
-    });
-    d += ` L${x} ${y.toFixed(1)}`;
-  }
-  return `${d} L${W} ${H} Z`;
-}
 
 // de la más lejana (clara) a la más cercana (oscura)
 const layers: Layer[] = [
@@ -49,7 +20,7 @@ const layers: Layer[] = [
 >
   <circle cx="1010" cy="690" r="34" fill="#F2C48D" />
   {layers.map((layer, i) => (
-    <path class="layer" style={`--depth: ${i}`} d={ridge(layer)} fill={layer.color} />
+    <path class="layer" style={`--depth: ${i}`} d={ridgePath(layer, W, H)} fill={layer.color} />
   ))}
   <path
     d="M120 846 C 360 832, 520 862, 720 850 S 1060 832, 1320 852"
