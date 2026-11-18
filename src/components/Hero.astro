@@ -1,0 +1,47 @@
+---
+import Landscape from './Landscape.astro';
+---
+
+<section class="hero relative isolate flex h-svh max-h-270 min-h-160 flex-col overflow-hidden short:min-h-140">
+  <Landscape />
+  <div class="relative px-4 pt-24 md:px-12 md:pt-36 short:pt-20">
+    <p class="font-mono text-[13px] text-bruma">Concepción, Chile · 36.8°S 73.0°O</p>
+    <h1 class="mt-4 font-display text-[56px] leading-none font-light tracking-display md:mt-6 md:text-mega short:text-[56px]">
+      Hola, soy Joaquin<span class="text-brasa">.</span>
+    </h1>
+
+    <p class="mt-5 max-w-150 text-[17px] leading-relaxed text-niebla md:mt-7 md:text-[22px] md:leading-normal short:mt-4 short:text-[17px]">
+      Hago sitios web para PYMES, rápidos, fáciles de editar y que Google entiende. En mis tiempos
+      libres, viajo.
+    </p>
+
+    <div class="mt-7 flex flex-col gap-4 md:mt-10 md:flex-row md:items-center md:gap-7 short:mt-6">
+      <a
+        href="/diagnostico"
+        class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+      >
+        Pide un diagnóstico de tu sitio
+      </a>
+      <a href="#casos" class="self-start border-b-[1.5px] border-ocaso pb-0.5 font-medium">
+        Ver casos ↓
+      </a>
+    </div>
+  </div>
+  <p class="absolute right-12 bottom-9 hidden font-mono text-[13px] text-niebla md:block">
+    Río Biobío · atardecer
+  </p>
+</section>
+
+<style>
+  /* cielo del atardecer: 5 paradas, por eso va en CSS y no en clases de Tailwind */
+  .hero {
+    background: linear-gradient(
+      180deg,
+      #16213a 0%,
+      #24365a 34%,
+      #4a5272 56%,
+      #c7795e 72%,
+      #e9a570 80%
+    );
+  }
+</style>

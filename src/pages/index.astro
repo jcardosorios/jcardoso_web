@@ -1,4 +1,5 @@
 ---
+import Hero from '../components/Hero.astro';
 import Base from '../layouts/Base.astro';
 ---
 
@@ -6,13 +7,8 @@ import Base from '../layouts/Base.astro';
   title="Joaquín Cardoso · Desarrollo web para pymes"
   description="Sitios web rápidos, fáciles de editar y pensados para Google. Desarrollo web para pymes desde Concepción, Chile."
 >
-  <section class="bg-cielo px-4 pb-24 pt-32 md:px-12 md:pt-44">
-    <p class="font-mono text-[13px] text-bruma">Concepción, Chile · 36.8°S 73.0°O</p>
-    <h1 class="mt-5 font-display text-[56px] font-light leading-none tracking-display md:text-mega">
-      Hola, soy Joaquín<span class="text-brasa">.</span>
-    </h1>
-    <p class="mt-7 max-w-xl text-lg text-niebla md:text-[22px] md:leading-normal">
-      Etapa 1: base del sitio funcionando.
-    </p>
+  <Hero />
+  <section id="casos" class="min-h-[60vh] bg-cerro px-4 py-24 md:px-12">
+    <p class="font-mono text-[13px] text-piedra">Etapa 3: aquí van los casos.</p>
   </section>
 </Base>

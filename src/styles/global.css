@@ -19,6 +19,8 @@
   --color-noche: #0f1626;
   --color-medianoche: #070a12;
 
+  --color-tinta: #1e2a2f;
+
   --font-display: 'Fraunces Variable', serif;
   --font-sans: 'Instrument Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -31,6 +33,8 @@
   --text-ttl--line-height: 1.08;
   --tracking-display: -0.035em;
 }
+
+@custom-variant short (@media (orientation: landscape) and (max-height: 500px));
 
 @layer base {
   html {
