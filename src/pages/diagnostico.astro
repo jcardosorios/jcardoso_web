@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import Night from '../components/Night.astro';
+import { contact } from '../data/contacto';
+
+const field =
+  'mt-2 w-full border border-pergamino/30 bg-noche px-4 py-3 text-pergamino placeholder:text-piedra';
+---
+
+<Base
+  title="Diagnóstico gratis de tu sitio | Joaquín Cardoso"
+  description="Cuéntame de tu negocio y reviso tu sitio web sin costo. Te respondo por WhatsApp."
+>
+  <Night>
+    <section class="px-4 pt-32 pb-24 md:px-12 md:pt-44 md:pb-32">
+      <p class="font-mono text-[13px] text-brasa">Diagnóstico gratis</p>
+      <h1 class="mt-4 max-w-300 font-display text-[44px] leading-none font-light tracking-display md:text-[80px] xl:text-big">
+        Cuéntame de tu negocio<span class="text-brasa">.</span>
+      </h1>
+      <p class="mt-6 max-w-150 text-lg text-niebla md:text-xl md:leading-7.5">
+        Completa esto y se abre WhatsApp con el mensaje listo. Reviso tu sitio y te respondo con lo que
+        encuentre, sin costo.
+      </p>
+
+      <form id="diagnostico" class="mt-12 grid max-w-150 gap-6">
+        <label class="block">
+          <span class="font-mono text-[13px] text-niebla">Tu nombre</span>
+          <input name="nombre" required autocomplete="name" class={field} />
+        </label>
+        <label class="block">
+          <span class="font-mono text-[13px] text-niebla">Tu negocio</span>
+          <input name="negocio" required autocomplete="organization" class={field} />
+        </label>
+        <label class="block">
+          <span class="font-mono text-[13px] text-niebla">Tu sitio actual (opcional)</span>
+          <input name="sitio" type="url" placeholder="https://" autocomplete="url" class={field} />
+        </label>
+        <label class="block">
+          <span class="font-mono text-[13px] text-niebla">¿Qué necesitas o qué te preocupa?</span>
+          <textarea name="necesidad" required rows="4" class={field}></textarea>
+        </label>
+
+        <button
+          type="submit"
+          class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+        >
+          Abrir WhatsApp con mi mensaje
+        </button>
+      </form>
+
+      <p class="mt-8 max-w-150 text-niebla">
+        ¿Prefieres el correo? Escríbeme a
+        <a class="border-b border-ocaso hit-area" href={`mailto:${contact.email}`}>{contact.email}</a>.
+        <a class="ml-1 border-b border-ocaso hit-area" href="/privacidad/">Cómo uso estos datos</a>.
+      </p>
+    </section>
+  </Night>
+</Base>
+
+<script define:vars={{ numero: contact.whatsapp?.number }}>
+  document.getElementById('diagnostico').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const lineas = [
+      'Hola Joaquín, quiero un diagnóstico gratis de mi sitio.',
+      `Nombre: ${f.get('nombre')}`,
+      `Negocio: ${f.get('negocio')}`,
+      f.get('sitio') && `Sitio: ${f.get('sitio')}`,
+      `Necesito: ${f.get('necesidad')}`,
+    ].filter(Boolean);
+    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(lineas.join('\n'))}`, '_blank', 'noopener');
+  });
+</script>

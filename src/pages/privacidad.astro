@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Night from '../components/Night.astro';
+import { contact } from '../data/contacto';
+---
+
+<Base
+  title="Privacidad | Joaquín Cardoso"
+  description="Qué datos recibo cuando me escribes desde este sitio y qué hago con ellos."
+>
+  <Night>
+    <section class="px-4 pt-32 pb-24 md:px-12 md:pt-44 md:pb-32">
+      <h1 class="max-w-300 font-display text-[44px] leading-none font-light tracking-display md:text-[80px]">
+        Privacidad<span class="text-brasa">.</span>
+      </h1>
+      <div class="mt-10 grid max-w-170 gap-5 text-lg leading-relaxed text-niebla">
+        <p>
+          El formulario de diagnóstico no envía nada a mi servidor: arma un mensaje en tu navegador y
+          abre WhatsApp. Solo lo recibo si tú lo envías desde tu teléfono.
+        </p>
+        <p>
+          Lo que escribas ahí (nombre, negocio, sitio y tu consulta) lo uso para responderte y
+          preparar el diagnóstico. No lo comparto ni lo vendo.
+        </p>
+        <p>
+          WhatsApp y Meta tratan tus mensajes bajo sus propias políticas. Este sitio no usa cookies
+          de seguimiento ni analítica.
+        </p>
+        <p>
+          Si quieres que borre una conversación, escríbeme a
+          <a class="border-b border-ocaso hit-area" href={`mailto:${contact.email}`}>{contact.email}</a>.
+        </p>
+      </div>
+    </section>
+  </Night>
+</Base>
