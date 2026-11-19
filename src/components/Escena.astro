@@ -176,11 +176,11 @@ const stars = Array.from({ length: 90 }, () => ({
     /* cielo del atardecer: 5 paradas, por eso va en CSS y no en clases de Tailwind */
     background: linear-gradient(
       180deg,
-      #16213a 0%,
-      #24365a 34%,
-      #4a5272 56%,
-      #c7795e 72%,
-      #e9a570 80%
+      var(--color-cielo) 0%,
+      var(--color-crepusculo) 34%,
+      var(--color-malva) 56%,
+      var(--color-arrebol) 72%,
+      var(--color-ocaso) 80%
     );
   }
   .fugaz {

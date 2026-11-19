@@ -17,7 +17,14 @@
   --color-crepusculo: #24365a;
   --color-cerro: #141c20;
   --color-noche: #0f1626;
+  --color-penumbra: #121a28;
+  --color-madrugada: #0a0f1c;
   --color-medianoche: #070a12;
+  /* atardecer del hero */
+  --color-malva: #4a5272;
+  --color-arrebol: #c7795e;
+  /* fondo del diagrama de streaming */
+  --color-pantalla: #101828;
 
   --color-tinta: #1e2a2f;
 
