@@ -7,7 +7,7 @@ import { contact } from '../data/contacto';
 if (!contact.whatsapp) throw new Error('diagnostico: falta contact.whatsapp en data/contacto.ts');
 
 const field =
-  'mt-2 w-full border border-pergamino/30 bg-noche px-4 py-3 text-pergamino placeholder:text-piedra';
+  'mt-2 w-full border border-pergamino/50 bg-noche px-4 py-3 text-pergamino placeholder:text-piedra';
 ---
 
 <Base
@@ -54,7 +54,7 @@ const field =
 
         <button
           type="submit"
-          class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso active:bg-brasa"
+          class="inline-flex h-14 items-center justify-center bg-pergamino px-4 whitespace-nowrap sm:px-7 font-medium text-tinta transition-colors hover:bg-ocaso active:bg-brasa"
         >
           Abrir WhatsApp con mi mensaje
         </button>
