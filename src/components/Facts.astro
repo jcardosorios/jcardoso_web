@@ -1,4 +1,6 @@
 ---
+import SectionTitle from './SectionTitle.astro';
+
 const facts = [
   { n: '4', text: 'canales: Canal 13, Chilevisión, Latina y Ecuavisa' },
   { n: '3', text: 'países: Chile, Perú y Ecuador' },
@@ -8,10 +10,9 @@ const facts = [
 ---
 
 <section aria-labelledby="facts-title" class="gutter pt-10 md:pt-14">
-  <h2 id="facts-title" class="text-[15px] text-bruma">
-    Mi trabajo hoy: apps de streaming, en equipo en DPS
-  </h2>
-  <ul class="mt-7 grid grid-cols-2 gap-x-4 gap-y-7 md:grid-cols-4 md:gap-6">
+  <SectionTitle id="facts-title" title="Mi trabajo hoy" />
+  <p class="mt-4 text-bruma md:mt-6 md:text-lg">Apps de streaming, en equipo en DPS.</p>
+  <ul class="mt-8 grid grid-cols-2 gap-x-4 gap-y-7 md:grid-cols-4 md:gap-6">
     {facts.map((f) => (
       <li class="flex flex-col gap-2.5 border-t border-ocaso/60 pt-4">
         <span class="font-display text-[60px] leading-none font-light tracking-display md:text-[104px]">
