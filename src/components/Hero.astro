@@ -1,9 +1,4 @@
----
-import Landscape from './Landscape.astro';
----
-
 <section class="hero relative isolate flex h-svh max-h-270 min-h-190 flex-col overflow-hidden short:min-h-140">
-  <Landscape />
   <div class="relative px-4 pt-24 md:px-12 md:pt-36 short:pt-20">
     <p class="font-mono text-[13px] text-bruma">Concepción, Chile · 36.8°S 73.0°O</p>
     <h1 class="mt-4 font-display text-[56px] leading-none font-light tracking-display md:mt-6 md:text-mega short:text-[56px]">
@@ -31,17 +26,3 @@ import Landscape from './Landscape.astro';
     Río Biobío · atardecer
   </p>
 </section>
-
-<style>
-  /* cielo del atardecer: 5 paradas, por eso va en CSS y no en clases de Tailwind */
-  .hero {
-    background: linear-gradient(
-      180deg,
-      #16213a 0%,
-      #24365a 34%,
-      #4a5272 56%,
-      #c7795e 72%,
-      #e9a570 80%
-    );
-  }
-</style>

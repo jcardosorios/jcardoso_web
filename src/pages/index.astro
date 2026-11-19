@@ -11,6 +11,7 @@ import Route from '../components/Route.astro';
 import CharacterSheet from '../components/CharacterSheet.astro';
 import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
+import Escena from '../components/Escena.astro';
 
 const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -19,8 +20,9 @@ const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.dat
   title="Joaquín Cardoso · Desarrollo web para pymes"
   description="Sitios web rápidos, fáciles de editar y pensados para Google. Desarrollo web para pymes desde Concepción, Chile."
 >
-  <Hero />
   <Night>
+    <Escena />
+    <Hero />
     <Facts />
 
     <section id="casos" aria-labelledby="casos-title" class="px-4 pt-24 pb-24 md:px-12 md:pt-40">

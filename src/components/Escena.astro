@@ -1,0 +1,241 @@
+---
+import { ridgePath, ridgeY, type Layer } from '../lib/ridge';
+import { rng } from '../lib/rng';
+
+const W = 1440;
+const H = 900;
+
+// de la más lejana (clara) a la más cercana (oscura); `noche` es el color al que llegan al anochecer
+const layers: Layer[] = [
+  { base: 690, amp: 70, freq: 1.1, seed: 94, color: '#4B5B7A' },
+  { base: 740, amp: 60, freq: 1.6, seed: 36, color: '#38465F' },
+  { base: 795, amp: 55, freq: 2.2, seed: 1, color: '#2A3548' },
+];
+const noche = ['#1a2236', '#0e1424', '#070a12']; // el último es el color del footer
+
+// la hoguera se apoya sobre la cordillera más cercana
+const fireX = 880;
+const fireY = ridgeY(layers[2], fireX, W) - 10;
+
+// estrellas del cielo fijo: solo sobre el horizonte, con brillo y tamaño variados
+const rand = rng(11);
+const stars = Array.from({ length: 90 }, () => ({
+  x: Math.round(rand() * W),
+  y: Math.round(rand() * 640),
+  r: [0.8, 1, 1.2, 1.6][Math.floor(rand() * 4)],
+  o: +(0.35 + rand() * 0.5).toFixed(2),
+}));
+---
+
+<div class="escena" aria-hidden="true">
+  <div class="dia"></div>
+  <svg
+    class="estrellas absolute inset-0 size-full"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMax slice"
+  >
+    <g class="deriva">
+      {stars.map((s, i) => (
+        <circle
+          class:list={{ twinkle: i % 3 === 0 }}
+          style={i % 3 === 0 ? `--d: ${(i * 0.7) % 4}s; --t: ${2 + (i % 4)}s` : undefined}
+          cx={s.x}
+          cy={s.y}
+          r={s.r}
+          fill="#F4EFE6"
+          fill-opacity={s.o}
+        ></circle>
+      ))}
+    </g>
+  </svg>
+  <svg
+    class="absolute inset-0 size-full"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMax slice"
+  >
+    <defs>
+      <radialGradient id="fuego">
+        <stop offset="0" stop-color="#e8754f" stop-opacity="0.5"></stop>
+        <stop offset="0.4" stop-color="#e8754f" stop-opacity="0.14"></stop>
+        <stop offset="1" stop-color="#e8754f" stop-opacity="0"></stop>
+      </radialGradient>
+    </defs>
+    <circle class="sun" cx="1010" cy="690" r="34" fill="#F2C48D"></circle>
+    {layers.map((layer, i) => (
+      <path
+        class="cerro"
+        style={`--noche: ${noche[i]}`}
+        d={ridgePath(layer, W, H)}
+        fill={layer.color}
+      />
+    ))}
+    <path
+      class="rio"
+      d="M120 846 C 360 832, 520 862, 720 850 S 1060 832, 1320 852"
+      stroke="#C9806A"
+      stroke-opacity="0.55"
+      stroke-width="3"
+      fill="none"
+    ></path>
+    <g class="fuego">
+      <circle class="brasas" cx={fireX + 8} cy={fireY + 8} r="230" fill="url(#fuego)"></circle>
+      <rect x={fireX} y={fireY} width="16" height="16" fill="#e8754f"></rect>
+    </g>
+  </svg>
+</div>
+
+<style is:global>
+  /* sin soporte de scroll-driven animations (o con movimiento reducido) la escena es solo el cielo del hero, como antes */
+  .escena {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: -10;
+    height: 100svh;
+    min-height: 47.5rem;
+    max-height: 67.5rem;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  @media (orientation: landscape) and (max-height: 500px) {
+    .escena {
+      min-height: 35rem;
+    }
+  }
+  .dia {
+    position: absolute;
+    inset: 0;
+    /* cielo del atardecer: 5 paradas, por eso va en CSS y no en clases de Tailwind */
+    background: linear-gradient(
+      180deg,
+      #16213a 0%,
+      #24365a 34%,
+      #4a5272 56%,
+      #c7795e 72%,
+      #e9a570 80%
+    );
+  }
+  .fuego,
+  .estrellas {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      /* la escena se queda fija mientras el contenido pasa por delante */
+      .escena {
+        position: sticky;
+        height: 100svh;
+        min-height: 0;
+        max-height: none;
+        margin-bottom: -100svh;
+      }
+      .contacto-paisaje,
+      .night:has(.escena) > svg {
+        display: none; /* el paisaje de Contacto y las estrellas largas de Night los reemplaza la escena */
+      }
+      .fuego {
+        display: inline;
+      }
+      .estrellas {
+        display: block;
+        animation: aparecer linear both;
+      }
+      .deriva {
+        animation: derivar linear both;
+      }
+      .twinkle {
+        animation: twinkle var(--t) ease-in-out var(--d) infinite alternate;
+      }
+
+      /* 1) al comenzar a bajar anochece: se apaga el cielo, el sol se esconde y los cerros se oscurecen */
+      .dia,
+      .rio {
+        animation: apagar linear both;
+      }
+      .sun {
+        --shift: 130px;
+        animation: sink linear both;
+      }
+      .cerro {
+        animation: anochecer linear both;
+      }
+      /* reglas aparte y más específicas: si no, el minificador funde el timeline en el shorthand y algunos navegadores lo descartan */
+      .escena .dia,
+      .escena .rio,
+      .escena .sun,
+      .escena .cerro {
+        animation-timeline: scroll(root);
+        animation-range: 0 50svh;
+      }
+
+      /* las estrellas se encienden pronto y casi no se mueven: derivan unas pocas unidades en toda la página */
+      .escena .estrellas {
+        animation-timeline: scroll(root);
+        animation-range: 5svh 45svh;
+      }
+      .escena .deriva {
+        animation-timeline: scroll(root);
+        animation-range: 0% 100%;
+      }
+
+      /* 2) en el último tramo de la página se enciende la hoguera */
+      .fuego {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: encender linear both;
+      }
+      .escena .fuego {
+        animation-timeline: scroll(root);
+        animation-range: 85% 100%;
+      }
+      .brasas {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: titilar 1.7s ease-in-out infinite alternate;
+      }
+    }
+  }
+  @keyframes apagar {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes derivar {
+    to {
+      transform: translateY(-50px);
+    }
+  }
+  @keyframes twinkle {
+    to {
+      opacity: 0.08;
+    }
+  }
+  @keyframes sink {
+    to {
+      transform: translateY(var(--shift));
+    }
+  }
+  @keyframes anochecer {
+    to {
+      fill: var(--noche);
+    }
+  }
+  @keyframes encender {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+  }
+  @keyframes titilar {
+    to {
+      transform: scale(1.07);
+      opacity: 0.8;
+    }
+  }
+</style>
