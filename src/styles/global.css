@@ -78,3 +78,9 @@
     transform: translateY(1.5rem);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
