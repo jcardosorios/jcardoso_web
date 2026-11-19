@@ -7,7 +7,7 @@ export const stops = [
   {
     kicker: '02 · ruta trazada',
     title: 'Propuesta',
-    text: 'Alcance, plazo y precio cerrados. Sin sorpresas.',
+    text: 'Alcance, plazo y precio cerrados.',
   },
   {
     kicker: '03 · ascenso',

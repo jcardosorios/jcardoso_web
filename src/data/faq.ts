@@ -17,6 +17,10 @@ export const faq = [
     a: 'Te enseño a editarlo y sigo disponible para tus dudas. Si quieres soporte continuo, existe el servicio de mantenimiento mensual.',
   },
   {
+    q: '¿Cuánto cuesta el diagnóstico y qué recibo?',
+    a: 'No tiene costo. Reviso tu sitio y te respondo con una lista de mejoras priorizadas, en lenguaje simple.',
+  },
+  {
     q: '¿Haces tiendas online?',
     a: 'No. Si necesitas una, te recomiendo a quien sí.',
   },

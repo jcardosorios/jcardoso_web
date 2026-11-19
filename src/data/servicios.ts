@@ -2,7 +2,7 @@ export const services = [
   {
     key: 'a',
     title: 'Diagnóstico de tu sitio',
-    text: 'Reviso velocidad, móvil, SEO básico y claridad. Te entrego mejoras priorizadas, en lenguaje simple.',
+    text: 'Sin costo. Reviso velocidad, móvil, SEO básico y claridad. Te entrego mejoras priorizadas, en lenguaje simple.',
   },
   {
     key: 'b',
