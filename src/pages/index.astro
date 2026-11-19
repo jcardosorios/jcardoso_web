@@ -12,14 +12,42 @@ import CharacterSheet from '../components/CharacterSheet.astro';
 import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Escena from '../components/Escena.astro';
+import { contact } from '../data/contacto';
 
 const casos = (await getCollection('casos')).sort((a, b) => a.data.order - b.data.order);
+
+const site = Astro.site!.href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${site}#joaquin`,
+      name: 'Joaquín Cardoso',
+      jobTitle: 'Desarrollador web',
+      url: site,
+      sameAs: ['https://www.linkedin.com/in/jcardosor/', 'https://github.com/jcardosorios'],
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${site}#servicio`,
+      name: 'Joaquín Cardoso · Desarrollo web',
+      url: site,
+      description: 'Sitios web rápidos, fáciles de editar y pensados para Google, para pymes de Chile.',
+      email: contact.email,
+      areaServed: { '@type': 'Country', name: 'Chile' },
+      address: { '@type': 'PostalAddress', addressLocality: 'Concepción', addressCountry: 'CL' },
+      founder: { '@id': `${site}#joaquin` },
+    },
+  ],
+};
 ---
 
 <Base
   title="Joaquín Cardoso · Desarrollo web para pymes"
   description="Sitios web rápidos, fáciles de editar y pensados para Google. Desarrollo web para pymes desde Concepción, Chile."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
   <Night>
     <Escena />
     <Hero />
