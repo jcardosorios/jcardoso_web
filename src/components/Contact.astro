@@ -40,24 +40,26 @@ const fireY = ridgeY(layers[1], fireX, W) - 10;
   </svg>
 
   <div class="relative">
-    <p class="font-mono text-[13px] text-piedra">¿Tu sitio te trae clientes o solo existe?</p>
     <h2
       id="contacto-title"
-      class="mt-6 max-w-275 font-display text-[52px] leading-none font-light tracking-display md:text-[88px] xl:text-[128px] xl:leading-[0.94]"
+      class="max-w-275 font-display text-[52px] leading-none font-light tracking-display md:text-[88px] xl:text-[128px] xl:leading-[0.94]"
     >
       Conversemos junto al fuego<span class="text-brasa">.</span>
     </h2>
+    <p class="mt-6 max-w-150 text-lg text-niebla md:text-xl">
+      ¿Tu sitio te trae clientes o solo existe?
+    </p>
 
     <div class="mt-8 flex flex-col gap-6 md:mt-12 md:flex-row md:flex-wrap md:items-center md:gap-9">
       <a
         href="/diagnostico"
-        class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+        class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso active:bg-brasa"
       >
         Pide un diagnóstico de tu sitio
       </a>
       <a
         href={`mailto:${contact.email}`}
-        class="font-mono text-[13px] text-niebla hover:text-pergamino hit-area"
+        class="text-[15px] text-niebla hover:text-pergamino hit-area"
       >
         {contact.email}
       </a>
@@ -66,7 +68,7 @@ const fireY = ridgeY(layers[1], fireX, W) - 10;
           href={`https://wa.me/${contact.whatsapp.number}`}
           target="_blank"
           rel="noopener"
-          class="font-mono text-[13px] text-niebla hover:text-pergamino hit-area"
+          class="text-[15px] text-niebla hover:text-pergamino hit-area"
         >
           WhatsApp {contact.whatsapp.display}
         </a>

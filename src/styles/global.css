@@ -53,6 +53,12 @@
     overflow-x: clip;
   }
 
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
   :focus-visible {
     outline: 3px solid var(--color-pergamino);
     outline-offset: 3px;

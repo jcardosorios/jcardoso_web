@@ -22,4 +22,4 @@ export const services = [
 ];
 
 export const servicesNote =
-  'Precio según diagnóstico · No hago tiendas online: si necesitas una, te recomiendo a quien sí.';
+  'Precio según diagnóstico. No hago tiendas online: si necesitas una, te recomiendo a quien sí.';

@@ -13,8 +13,7 @@ const field =
 >
   <Night>
     <section class="gutter pt-32 pb-24 md:pt-44 md:pb-32">
-      <p class="font-mono text-[13px] text-brasa">Diagnóstico gratis</p>
-      <h1 class="mt-4 max-w-300 font-display text-[44px] leading-none font-light tracking-display md:text-[80px] xl:text-big">
+      <h1 class="max-w-300 font-display text-[44px] leading-none font-light tracking-display md:text-[80px] xl:text-big">
         Cuéntame de tu negocio<span class="text-brasa">.</span>
       </h1>
       <p class="mt-6 max-w-150 text-lg text-niebla md:text-xl md:leading-7.5">
@@ -24,25 +23,25 @@ const field =
 
       <form id="diagnostico" class="mt-12 grid max-w-150 gap-6">
         <label class="block">
-          <span class="font-mono text-[13px] text-niebla">Tu nombre</span>
+          <span class="text-sm text-niebla">Tu nombre</span>
           <input name="nombre" required autocomplete="name" class={field} />
         </label>
         <label class="block">
-          <span class="font-mono text-[13px] text-niebla">Tu negocio</span>
+          <span class="text-sm text-niebla">Tu negocio</span>
           <input name="negocio" required autocomplete="organization" class={field} />
         </label>
         <label class="block">
-          <span class="font-mono text-[13px] text-niebla">Tu sitio actual (opcional)</span>
+          <span class="text-sm text-niebla">Tu sitio actual (opcional)</span>
           <input name="sitio" type="url" placeholder="https://" autocomplete="url" class={field} />
         </label>
         <label class="block">
-          <span class="font-mono text-[13px] text-niebla">¿Qué necesitas o qué te preocupa?</span>
+          <span class="text-sm text-niebla">¿Qué necesitas o qué te preocupa?</span>
           <textarea name="necesidad" required rows="4" class={field}></textarea>
         </label>
 
         <button
           type="submit"
-          class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+          class="inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso active:bg-brasa"
         >
           Abrir WhatsApp con mi mensaje
         </button>

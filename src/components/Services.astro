@@ -9,7 +9,7 @@ import SectionTitle from './SectionTitle.astro';
   class="gutter pt-24 md:pt-40 xl:grid xl:grid-cols-12 xl:gap-6"
 >
   <div class="xl:col-span-5">
-    <SectionTitle id="servicios-title" eyebrow="Anochecer" title="Servicios" />
+    <SectionTitle id="servicios-title" title="Servicios" />
   </div>
 
   <div class="mt-8 md:mt-12 xl:col-span-7 xl:mt-0 xl:pt-10">
@@ -24,8 +24,6 @@ import SectionTitle from './SectionTitle.astro';
         </li>
       ))}
     </ul>
-    <p class="border-t border-pergamino/30 pt-5 font-mono text-[13px] text-piedra">
-      {servicesNote}
-    </p>
+    <p class="border-t border-pergamino/30 pt-5 text-sm text-piedra">{servicesNote}</p>
   </div>
 </section>

@@ -22,10 +22,7 @@ const index = String(data.order).padStart(2, '0');
 <Base title={`${data.title} · Caso | Joaquín Cardoso`} description={data.summary}>
   <Night>
     <article class="gutter pt-28 pb-20 md:pt-40 md:pb-28">
-      <a
-        href="/#casos"
-        class="hit-area inline-block font-mono text-[13px] text-piedra hover:text-pergamino"
-      >
+      <a href="/#casos" class="hit-area inline-block text-sm text-piedra hover:text-pergamino">
         <span aria-hidden="true">←</span> Todos los casos
       </a>
       <p class="mt-10 font-mono text-[13px] text-brasa">Caso {index}</p>
@@ -75,15 +72,12 @@ const index = String(data.order).padStart(2, '0');
       </div>
     </article>
     <nav aria-label="Más casos" class="border-t border-pergamino/20 gutter py-16">
-      <p class="font-mono text-[13px] text-piedra">Siguiente caso</p>
+      <p class="text-sm text-piedra">Siguiente caso</p>
       <a
         class="hit-area mt-3 inline-block font-display text-4xl leading-tight font-light tracking-display hover:text-ocaso md:text-ttl"
         href={`/casos/${next.id}/`}
       >
         {next.data.title}
-        <span aria-hidden="true" class="ml-2">
-          →
-        </span>
       </a>
     </nav>
     <section aria-labelledby="caso-cta" class="gutter pt-8 pb-24 md:pb-32">
@@ -95,7 +89,7 @@ const index = String(data.order).padStart(2, '0');
       </h2>
       <a
         href="/diagnostico"
-        class="mt-8 inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso"
+        class="mt-8 inline-flex h-14 items-center justify-center bg-pergamino px-7 font-medium text-tinta transition-colors hover:bg-ocaso active:bg-brasa"
       >
         Pide un diagnóstico de tu sitio
       </a>
