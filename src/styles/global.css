@@ -49,7 +49,7 @@
     overflow-x: clip;
   }
   body {
-    @apply bg-noche font-sans text-pergamino antialiased;
+    @apply bg-medianoche font-sans text-pergamino antialiased;
     overflow-x: clip;
   }
 
