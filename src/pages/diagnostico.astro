@@ -3,6 +3,9 @@ import Base from '../layouts/Base.astro';
 import Night from '../components/Night.astro';
 import { contact } from '../data/contacto';
 
+// el formulario solo sabe abrir WhatsApp: sin número, que falle el build y no el visitante
+if (!contact.whatsapp) throw new Error('diagnostico: falta contact.whatsapp en data/contacto.ts');
+
 const field =
   'mt-2 w-full border border-pergamino/30 bg-noche px-4 py-3 text-pergamino placeholder:text-piedra';
 ---
@@ -21,7 +24,17 @@ const field =
         que encuentre, sin costo.
       </p>
 
-      <form id="diagnostico" class="mt-12 grid max-w-150 gap-6">
+      <noscript>
+        <p class="mt-12 max-w-150 border-l-2 border-brasa pl-4 text-niebla">
+          Este formulario necesita JavaScript para abrir WhatsApp. Escríbeme a
+          <a class="border-b border-ocaso" href={`mailto:${contact.email}`}>
+            {contact.email}
+          </a>
+          .
+        </p>
+      </noscript>
+      {/* post: si el script falla, los datos no quedan en la URL */}
+      <form id="diagnostico" method="post" class="mt-12 grid max-w-150 gap-6">
         <label class="block">
           <span class="text-sm text-niebla">Tu nombre</span>
           <input name="nombre" required autocomplete="name" class={field} />
