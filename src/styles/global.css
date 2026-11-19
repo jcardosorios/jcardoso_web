@@ -39,15 +39,25 @@
 @layer base {
   html {
     color-scheme: dark;
+    overflow-x: clip;
   }
   body {
     @apply bg-noche font-sans text-pergamino antialiased;
+    overflow-x: clip;
   }
 
   :focus-visible {
     outline: 3px solid var(--color-pergamino);
     outline-offset: 3px;
     box-shadow: 0 0 0 3px var(--color-noche);
+  }
+}
+
+/* margen lateral que crece en pantallas anchas: el contenido no pasa de 88rem */
+@utility gutter {
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: max(3rem, calc((100% - 88rem) / 2));
   }
 }
 
