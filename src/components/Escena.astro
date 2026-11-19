@@ -54,12 +54,24 @@ const stars = Array.from({ length: 90 }, () => ({
     preserveAspectRatio="xMidYMax slice"
   >
     <defs>
+      <radialGradient id="brillo-luna">
+        <stop offset="0" stop-color="#e9e4d4" stop-opacity="0.18"></stop>
+        <stop offset="1" stop-color="#e9e4d4" stop-opacity="0"></stop>
+      </radialGradient>
       <radialGradient id="fuego">
         <stop offset="0" stop-color="#e8754f" stop-opacity="0.5"></stop>
         <stop offset="0.4" stop-color="#e8754f" stop-opacity="0.14"></stop>
         <stop offset="1" stop-color="#e8754f" stop-opacity="0"></stop>
       </radialGradient>
     </defs>
+    <mask id="luna-mask" maskUnits="userSpaceOnUse" x="860" y="190" width="80" height="80">
+      <rect x="860" y="190" width="80" height="80" fill="white"></rect>
+      <circle cx="912" cy="226" r="20" fill="black"></circle>
+    </mask>
+    <g class="luna" opacity="0.85">
+      <circle cx="900" cy="230" r="70" fill="url(#brillo-luna)"></circle>
+      <circle cx="900" cy="230" r="22" fill="#e9e4d4" mask="url(#luna-mask)"></circle>
+    </g>
     <circle class="sun" cx="1010" cy="690" r="34" fill="#F2C48D"></circle>
     {layers.map((layer, i) => (
       <path
@@ -116,7 +128,9 @@ const stars = Array.from({ length: 90 }, () => ({
     );
   }
   .fuego,
-  .estrellas {
+  .estrellas,
+  .luna,
+  .tramo {
     display: none;
   }
 
@@ -141,6 +155,15 @@ const stars = Array.from({ length: 90 }, () => ({
         display: block;
         animation: aparecer linear both;
       }
+      .luna {
+        display: inline;
+        animation: aparecer linear both;
+      }
+      /* tramo sin contenido tras el hero: el atardecer avanza antes de que llegue el primer texto */
+      .tramo {
+        display: block;
+        height: 45svh;
+      }
       .deriva {
         animation: derivar linear both;
       }
@@ -148,7 +171,7 @@ const stars = Array.from({ length: 90 }, () => ({
         animation: twinkle var(--t) ease-in-out var(--d) infinite alternate;
       }
 
-      /* 1) al comenzar a bajar anochece: se apaga el cielo, el sol se esconde y los cerros se oscurecen */
+      /* 1) al comenzar a bajar anochece (en 80svh: más gradual, por eso el tramo de arriba): se apaga el cielo, el sol se esconde y los cerros se oscurecen */
       .dia,
       .rio {
         animation: apagar linear both;
@@ -166,7 +189,11 @@ const stars = Array.from({ length: 90 }, () => ({
       .escena .sun,
       .escena .cerro {
         animation-timeline: scroll(root);
-        animation-range: 0 50svh;
+        animation-range: 0 80svh;
+      }
+      .escena .luna {
+        animation-timeline: scroll(root);
+        animation-range: 40svh 90svh;
       }
 
       /* las estrellas se encienden pronto y casi no se mueven: derivan unas pocas unidades en toda la página */
