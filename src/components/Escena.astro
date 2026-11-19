@@ -47,6 +47,9 @@ const stars = Array.from({ length: 90 }, () => ({
         ></circle>
       ))}
     </g>
+    <g transform="translate(300 90)"><g class="fugaz" style="--c: 21s; --d: 6s"><line x2="-90" y2="-45" stroke="url(#estela)" stroke-width="1.6" stroke-linecap="round"></line></g></g>
+    <g transform="translate(1000 60) scale(-1 1)"><g class="fugaz" style="--c: 33s; --d: 15s"><line x2="-90" y2="-45" stroke="url(#estela)" stroke-width="1.6" stroke-linecap="round"></line></g></g>
+    <g transform="translate(620 210)"><g class="fugaz" style="--c: 47s; --d: 27s"><line x2="-90" y2="-45" stroke="url(#estela)" stroke-width="1.6" stroke-linecap="round"></line></g></g>
   </svg>
   <svg
     class="absolute inset-0 size-full"
@@ -54,6 +57,10 @@ const stars = Array.from({ length: 90 }, () => ({
     preserveAspectRatio="xMidYMax slice"
   >
     <defs>
+      <linearGradient id="estela" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="-90" y2="-45">
+        <stop offset="0" stop-color="#f4efe6"></stop>
+        <stop offset="1" stop-color="#f4efe6" stop-opacity="0"></stop>
+      </linearGradient>
       <radialGradient id="brillo-luna">
         <stop offset="0" stop-color="#e9e4d4" stop-opacity="0.18"></stop>
         <stop offset="1" stop-color="#e9e4d4" stop-opacity="0"></stop>
@@ -64,13 +71,13 @@ const stars = Array.from({ length: 90 }, () => ({
         <stop offset="1" stop-color="#e8754f" stop-opacity="0"></stop>
       </radialGradient>
     </defs>
-    <mask id="luna-mask" maskUnits="userSpaceOnUse" x="860" y="190" width="80" height="80">
-      <rect x="860" y="190" width="80" height="80" fill="white"></rect>
-      <circle cx="912" cy="226" r="20" fill="black"></circle>
+    <mask id="luna-mask" maskUnits="userSpaceOnUse" x="1140" y="110" width="80" height="80">
+      <rect x="1140" y="110" width="80" height="80" fill="white"></rect>
+      <circle cx="1192" cy="146" r="20" fill="black"></circle>
     </mask>
     <g class="luna" opacity="0.85">
-      <circle cx="900" cy="230" r="70" fill="url(#brillo-luna)"></circle>
-      <circle cx="900" cy="230" r="22" fill="#e9e4d4" mask="url(#luna-mask)"></circle>
+      <circle cx="1180" cy="150" r="70" fill="url(#brillo-luna)"></circle>
+      <circle cx="1180" cy="150" r="22" fill="#e9e4d4" mask="url(#luna-mask)"></circle>
     </g>
     <circle class="sun" cx="1010" cy="690" r="34" fill="#F2C48D"></circle>
     {layers.map((layer, i) => (
@@ -127,6 +134,9 @@ const stars = Array.from({ length: 90 }, () => ({
       #e9a570 80%
     );
   }
+  .fugaz {
+    opacity: 0;
+  }
   .fuego,
   .estrellas,
   .luna,
@@ -158,6 +168,10 @@ const stars = Array.from({ length: 90 }, () => ({
       .luna {
         display: inline;
         animation: aparecer linear both;
+      }
+      /* cada estrella fugaz cruza el cielo un instante y espera: ciclos largos y distintos para que parezca azar */
+      .fugaz {
+        animation: fugaz var(--c) linear var(--d) infinite;
       }
       /* tramo sin contenido tras el hero: el atardecer avanza antes de que llegue el primer texto */
       .tramo {
@@ -226,6 +240,29 @@ const stars = Array.from({ length: 90 }, () => ({
   @keyframes apagar {
     to {
       opacity: 0;
+    }
+  }
+  @media (max-width: 767px) {
+    /* en pantallas angostas el cielo se recorta por los lados: la luna se acerca al centro */
+    .luna {
+      translate: -330px 0;
+    }
+  }
+  @keyframes fugaz {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    0.6% {
+      opacity: 1;
+    }
+    2.5% {
+      opacity: 1;
+    }
+    3.2%,
+    100% {
+      opacity: 0;
+      transform: translate(280px, 140px);
     }
   }
   @keyframes aparecer {
