@@ -1,8 +1,8 @@
-@import 'tailwindcss';
-@import '@fontsource-variable/fraunces';
-@import '@fontsource/instrument-sans/400.css';
-@import '@fontsource/instrument-sans/500.css';
-@import '@fontsource/ibm-plex-mono/400.css';
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces";
+@import "@fontsource/instrument-sans/400.css";
+@import "@fontsource/instrument-sans/500.css";
+@import "@fontsource/ibm-plex-mono/400.css";
 
 @theme {
   /* texto y acentos */
@@ -21,9 +21,9 @@
 
   --color-tinta: #1e2a2f;
 
-  --font-display: 'Fraunces Variable', serif;
-  --font-sans: 'Instrument Sans', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: "Fraunces Variable", serif;
+  --font-sans: "Instrument Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 
   --text-mega: 7.5rem; /* 120px */
   --text-mega--line-height: 0.97;
@@ -54,8 +54,27 @@
 @utility hit-area {
   position: relative;
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: -0.875rem -0.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+    }
+
+    :root .reveal {
+      animation-timeline: view();
+      animation-range: entry 0% entry 300px;
+    }
+  }
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
   }
 }
