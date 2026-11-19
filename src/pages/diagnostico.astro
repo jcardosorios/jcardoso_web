@@ -18,8 +18,8 @@ const field =
         Cuéntame de tu negocio<span class="text-brasa">.</span>
       </h1>
       <p class="mt-6 max-w-150 text-lg text-niebla md:text-xl md:leading-7.5">
-        Completa esto y se abre WhatsApp con el mensaje listo. Reviso tu sitio y te respondo con lo que
-        encuentre, sin costo.
+        Completa esto y se abre WhatsApp con el mensaje listo. Reviso tu sitio y te respondo con lo
+        que encuentre, sin costo.
       </p>
 
       <form id="diagnostico" class="mt-12 grid max-w-150 gap-6">
@@ -50,8 +50,14 @@ const field =
 
       <p class="mt-8 max-w-150 text-niebla">
         ¿Prefieres el correo? Escríbeme a
-        <a class="border-b border-ocaso hit-area" href={`mailto:${contact.email}`}>{contact.email}</a>.
-        <a class="ml-1 border-b border-ocaso hit-area" href="/privacidad/">Cómo uso estos datos</a>.
+        <a class="border-b border-ocaso hit-area" href={`mailto:${contact.email}`}>
+          {contact.email}
+        </a>
+        .
+        <a class="ml-1 border-b border-ocaso hit-area" href="/privacidad/">
+          Cómo uso estos datos
+        </a>
+        .
       </p>
     </section>
   </Night>
@@ -68,6 +74,10 @@ const field =
       f.get('sitio') && `Sitio: ${f.get('sitio')}`,
       `Necesito: ${f.get('necesidad')}`,
     ].filter(Boolean);
-    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(lineas.join('\n'))}`, '_blank', 'noopener');
+    window.open(
+      `https://wa.me/${numero}?text=${encodeURIComponent(lineas.join('\n'))}`,
+      '_blank',
+      'noopener',
+    );
   });
 </script>

@@ -35,27 +35,28 @@ const analyticsId = import.meta.env.PROD ? 'G-CVX3K8BCT9' : undefined;
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Joaquín Cardoso, desarrollo web para pymes, sobre un atardecer en la cordillera" />
+    <meta
+      property="og:image:alt"
+      content="Joaquín Cardoso, desarrollo web para pymes, sobre un atardecer en la cordillera"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
 
-    {analyticsId && (
-      <script define:vars={{ analyticsId }}>
-        // se carga después de `load` para no competir con el primer pintado
-        window.addEventListener('load', () => {
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          gtag('js', new Date());
-          gtag('config', analyticsId);
-          const s = document.createElement('script');
-          s.async = true;
-          s.src = `https://www.googletagmanager.com/gtag/js?id=${analyticsId}`;
-          document.head.appendChild(s);
-        });
-      </script>
-    )}
+    {analyticsId && <script define:vars={{ analyticsId }}>
+      // se carga después de `load` para no competir con el primer pintado
+      window.addEventListener('load', () => {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', analyticsId);
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${analyticsId}`;
+        document.head.appendChild(s);
+      });
+    </script>}
     <link rel="preload" href={frauncesUrl} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={instrumentUrl} as="font" type="font/woff2" crossorigin />
   </head>

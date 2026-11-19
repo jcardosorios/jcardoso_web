@@ -15,8 +15,8 @@ import { contact } from '../data/contacto';
       </h1>
       <div class="mt-10 grid max-w-170 gap-5 text-lg leading-relaxed text-niebla">
         <p>
-          El formulario de diagnóstico no envía nada a mi servidor: arma un mensaje en tu navegador y
-          abre WhatsApp. Solo lo recibo si tú lo envías desde tu teléfono.
+          El formulario de diagnóstico no envía nada a mi servidor: arma un mensaje en tu navegador
+          y abre WhatsApp. Solo lo recibo si tú lo envías desde tu teléfono.
         </p>
         <p>
           Lo que escribas ahí (nombre, negocio, sitio y tu consulta) lo uso para responderte y
@@ -24,13 +24,16 @@ import { contact } from '../data/contacto';
         </p>
         <p>WhatsApp y Meta tratan tus mensajes bajo sus propias políticas.</p>
         <p>
-          Para medir las visitas uso Google Analytics. Instala cookies y envía datos de uso
-          (páginas vistas, dispositivo, país aproximado) a Google. Puedes bloquearlo desde la
-          configuración de tu navegador.
+          Para medir las visitas uso Google Analytics. Instala cookies y envía datos de uso (páginas
+          vistas, dispositivo, país aproximado) a Google. Puedes bloquearlo desde la configuración
+          de tu navegador.
         </p>
         <p>
           Si quieres que borre una conversación, escríbeme a
-          <a class="border-b border-ocaso hit-area" href={`mailto:${contact.email}`}>{contact.email}</a>.
+          <a class="border-b border-ocaso hit-area" href={`mailto:${contact.email}`}>
+            {contact.email}
+          </a>
+          .
         </p>
       </div>
     </section>
