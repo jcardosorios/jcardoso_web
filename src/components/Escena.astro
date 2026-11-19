@@ -13,9 +13,9 @@ const layers: Layer[] = [
 ];
 const noche = ['#1a2236', '#0e1424', '#070a12']; // el último es el color del footer
 
-// la hoguera se apoya sobre la cordillera más cercana
-const fireX = 880;
-const fireY = ridgeY(layers[2], fireX, W) - 10;
+// la hoguera se apoya sobre la cordillera del medio: más alta que la cercana, para que el footer no la tape
+const fireX = 900;
+const fireY = ridgeY(layers[1], fireX, W) - 10;
 
 // estrellas del cielo fijo: solo sobre el horizonte, con brillo y tamaño variados
 const rand = rng(11);
@@ -27,127 +27,129 @@ const stars = Array.from({ length: 90 }, () => ({
 }));
 ---
 
-<div class="escena-pista" aria-hidden="true">
-  <div class="escena">
-    <div class="dia"></div>
-    <svg
-      class="estrellas absolute inset-0 size-full"
-      viewBox={`0 0 ${W} ${H}`}
-      preserveAspectRatio="xMidYMax slice"
-    >
-      <g class="deriva">
-        {stars.map((s, i) => (
-          <circle
-            class:list={{ twinkle: i % 3 === 0 }}
-            style={i % 3 === 0 ? `--d: ${(i * 0.7) % 4}s; --t: ${2 + (i % 4)}s` : undefined}
-            cx={s.x}
-            cy={s.y}
-            r={s.r}
-            fill="#F4EFE6"
-            fill-opacity={s.o}
-          ></circle>
-        ))}
+<div class="escena" aria-hidden="true">
+  <div class="dia"></div>
+  <svg
+    class="estrellas absolute inset-0 size-full"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMax slice"
+  >
+    <g class="deriva">
+      {stars.map((s, i) => (
+        <circle
+          class:list={{ twinkle: i % 3 === 0 }}
+          style={i % 3 === 0 ? `--d: ${(i * 0.7) % 4}s; --t: ${2 + (i % 4)}s` : undefined}
+          cx={s.x}
+          cy={s.y}
+          r={s.r}
+          fill="#F4EFE6"
+          fill-opacity={s.o}
+        ></circle>
+      ))}
+    </g>
+    <g transform="translate(300 90)">
+      <g class="fugaz" style="--c: 21s; --d: 6s">
+        <line
+          x2="-90"
+          y2="-45"
+          stroke="url(#estela)"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        ></line>
       </g>
-      <g transform="translate(300 90)">
-        <g class="fugaz" style="--c: 21s; --d: 6s">
-          <line
-            x2="-90"
-            y2="-45"
-            stroke="url(#estela)"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          ></line>
-        </g>
+    </g>
+    <g transform="translate(1000 60) scale(-1 1)">
+      <g class="fugaz" style="--c: 33s; --d: 15s">
+        <line
+          x2="-90"
+          y2="-45"
+          stroke="url(#estela)"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        ></line>
       </g>
-      <g transform="translate(1000 60) scale(-1 1)">
-        <g class="fugaz" style="--c: 33s; --d: 15s">
-          <line
-            x2="-90"
-            y2="-45"
-            stroke="url(#estela)"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          ></line>
-        </g>
+    </g>
+    <g transform="translate(620 210)">
+      <g class="fugaz" style="--c: 47s; --d: 27s">
+        <line
+          x2="-90"
+          y2="-45"
+          stroke="url(#estela)"
+          stroke-width="1.6"
+          stroke-linecap="round"
+        ></line>
       </g>
-      <g transform="translate(620 210)">
-        <g class="fugaz" style="--c: 47s; --d: 27s">
-          <line
-            x2="-90"
-            y2="-45"
-            stroke="url(#estela)"
-            stroke-width="1.6"
-            stroke-linecap="round"
-          ></line>
-        </g>
-      </g>
-    </svg>
-    <svg
-      class="absolute inset-0 size-full"
-      viewBox={`0 0 ${W} ${H}`}
-      preserveAspectRatio="xMidYMax slice"
-    >
-      <defs>
-        <linearGradient id="estela" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="-90" y2="-45">
-          <stop offset="0" stop-color="#f4efe6"></stop>
-          <stop offset="1" stop-color="#f4efe6" stop-opacity="0"></stop>
-        </linearGradient>
-        <radialGradient id="brillo-luna">
-          <stop offset="0" stop-color="#e9e4d4" stop-opacity="0.18"></stop>
-          <stop offset="1" stop-color="#e9e4d4" stop-opacity="0"></stop>
-        </radialGradient>
-        <radialGradient id="fuego">
-          <stop offset="0" stop-color="#e8754f" stop-opacity="0.5"></stop>
-          <stop offset="0.4" stop-color="#e8754f" stop-opacity="0.14"></stop>
-          <stop offset="1" stop-color="#e8754f" stop-opacity="0"></stop>
-        </radialGradient>
-      </defs>
-      <mask id="luna-mask" maskUnits="userSpaceOnUse" x="1140" y="110" width="80" height="80">
-        <rect x="1140" y="110" width="80" height="80" fill="white"></rect>
-        <circle cx="1192" cy="146" r="20" fill="black"></circle>
-      </mask>
-      <g class="luna" opacity="0.85">
-        <circle cx="1180" cy="150" r="70" fill="url(#brillo-luna)"></circle>
-        <circle cx="1180" cy="150" r="22" fill="#e9e4d4" mask="url(#luna-mask)"></circle>
-      </g>
-      <circle class="sun" cx="1010" cy="690" r="34" fill="#F2C48D"></circle>
-      {layers.map((layer, i) => (
+    </g>
+  </svg>
+  <svg
+    class="absolute inset-0 size-full"
+    viewBox={`0 0 ${W} ${H}`}
+    preserveAspectRatio="xMidYMax slice"
+  >
+    <defs>
+      <linearGradient id="estela" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="-90" y2="-45">
+        <stop offset="0" stop-color="#f4efe6"></stop>
+        <stop offset="1" stop-color="#f4efe6" stop-opacity="0"></stop>
+      </linearGradient>
+      <radialGradient id="brillo-luna">
+        <stop offset="0" stop-color="#e9e4d4" stop-opacity="0.18"></stop>
+        <stop offset="1" stop-color="#e9e4d4" stop-opacity="0"></stop>
+      </radialGradient>
+      <radialGradient id="fuego">
+        <stop offset="0" stop-color="#e8754f" stop-opacity="0.5"></stop>
+        <stop offset="0.4" stop-color="#e8754f" stop-opacity="0.14"></stop>
+        <stop offset="1" stop-color="#e8754f" stop-opacity="0"></stop>
+      </radialGradient>
+    </defs>
+    <mask id="luna-mask" maskUnits="userSpaceOnUse" x="1140" y="110" width="80" height="80">
+      <rect x="1140" y="110" width="80" height="80" fill="white"></rect>
+      <circle cx="1192" cy="146" r="20" fill="black"></circle>
+    </mask>
+    <g class="luna" opacity="0.85">
+      <circle cx="1180" cy="150" r="70" fill="url(#brillo-luna)"></circle>
+      <circle cx="1180" cy="150" r="22" fill="#e9e4d4" mask="url(#luna-mask)"></circle>
+    </g>
+    <circle class="sun" cx="1010" cy="690" r="34" fill="#F2C48D"></circle>
+    {layers.map((layer, i) => (
+      <>
         <path
           class="cerro"
           style={`--noche: ${noche[i]}`}
           d={ridgePath(layer, W, H)}
           fill={layer.color}
         />
-      ))}
-      <path
-        class="rio"
-        d="M120 846 C 360 832, 520 862, 720 850 S 1060 832, 1320 852"
-        stroke="#C9806A"
-        stroke-opacity="0.55"
-        stroke-width="3"
-        fill="none"
-      ></path>
-      <g class="fuego">
-        <circle class="brasas" cx={fireX + 8} cy={fireY + 8} r="230" fill="url(#fuego)"></circle>
-        <rect x={fireX} y={fireY} width="16" height="16" fill="#e8754f"></rect>
-      </g>
-    </svg>
-  </div>
+        {i === 1 && (
+          <g class="fuego">
+            <circle
+              class="brasas"
+              cx={fireX + 8}
+              cy={fireY + 8}
+              r="230"
+              fill="url(#fuego)"
+            ></circle>
+            <rect x={fireX} y={fireY} width="16" height="16" fill="#e8754f"></rect>
+          </g>
+        )}
+      </>
+    ))}
+    <path
+      class="rio"
+      d="M120 846 C 360 832, 520 862, 720 850 S 1060 832, 1320 852"
+      stroke="#C9806A"
+      stroke-opacity="0.55"
+      stroke-width="3"
+      fill="none"
+    ></path>
+  </svg>
 </div>
 
 <style is:global>
   /* sin soporte de scroll-driven animations (o con movimiento reducido) la escena es solo el cielo del hero, como antes */
-  /* la pista cubre toda la sección: la escena se mueve dentro de ella y no puede pasar del final */
-  .escena-pista {
-    position: absolute;
-    inset: 0;
-    z-index: -10;
-    pointer-events: none;
-  }
   .escena {
     position: absolute;
     inset-inline: 0;
     top: 0;
+    z-index: -10;
     height: 100svh;
     min-height: 47.5rem;
     max-height: 67.5rem;
@@ -190,6 +192,11 @@ const stars = Array.from({ length: 90 }, () => ({
         height: 100svh;
         min-height: 0;
         max-height: none;
+        margin-bottom: -100svh;
+      }
+      /* la escena sigue fija hasta el final y pasa por detrás del footer: el footer va por encima, con su fondo, y la tapa */
+      main:has(.escena) + footer {
+        position: relative;
       }
       .contacto-paisaje,
       .night:has(.escena) > svg {
