@@ -154,6 +154,11 @@ const stars = Array.from({ length: 90 }, () => ({
         max-height: none;
         margin-bottom: -100svh;
       }
+      /* la escena queda fija hasta el final y los cerros taparían el footer: va por encima y sin fondo, para que se vean los cerros detrás */
+      main:has(.escena) + footer {
+        position: relative;
+        background: transparent;
+      }
       .contacto-paisaje,
       .night:has(.escena) > svg {
         display: none; /* el paisaje de Contacto y las estrellas largas de Night los reemplaza la escena */
