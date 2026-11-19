@@ -24,7 +24,29 @@ const stars = Array.from({ length: 260 }, () => {
   preserveAspectRatio="xMidYMin slice"
   aria-hidden="true"
 >
-  {stars.map((s) => (
-    <circle cx={s.x} cy={s.y} r={s.r} fill="#F4EFE6" fill-opacity={s.o} />
+  {stars.map((s, i) => (
+    <circle
+      class:list={{ twinkle: i % 3 === 0 }}
+      style={i % 3 === 0 ? `--d: ${(i * 0.7) % 4}s; --t: ${2 + (i % 4)}s` : undefined}
+      cx={s.x}
+      cy={s.y}
+      r={s.r}
+      fill="#F4EFE6"
+      fill-opacity={s.o}
+    />
   ))}
 </svg>
+
+<style>
+  /* una de cada tres estrellas parpadea, con ritmo y fase propios */
+  @media (prefers-reduced-motion: no-preference) {
+    .twinkle {
+      animation: twinkle var(--t) ease-in-out var(--d) infinite alternate;
+    }
+  }
+  @keyframes twinkle {
+    to {
+      opacity: 0.08;
+    }
+  }
+</style>
